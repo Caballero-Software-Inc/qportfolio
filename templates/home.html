@@ -9,6 +9,9 @@
 </head>
 
 <body style="background-color:yellow;">
+
+    <div id="mainId"></div>
+
     <script>
         'use strict';
         function deutschCode() {
@@ -58,6 +61,7 @@
         }
 
         function deutschPage() {
+            localStorage.setItem('pageqportlio', "deutschPage");
             document.getElementById('mainId').innerHTML = "<h1>Deutsch algorithm</h1>";
             document.getElementById('mainId').innerHTML += "<a href='https://www.wikiwand.com/en/Deutsch%E2%80%93Jozsa_algorithm'>Read about this quantum algorithm on Wikipedia.</a><Br></Br>";
             document.getElementById('mainId').innerHTML += "<label>f(0) = </label>";
@@ -75,30 +79,101 @@
             document.getElementById('mainId').innerHTML += '<input type="radio" id="backendradioquantumId" name="backendradioId" onclick="addBackend()" value="1">';
             document.getElementById('mainId').innerHTML += '<label for="backendradioquantumId">Quantum</label><Br></Br>';
             document.getElementById('mainId').innerHTML += '<div id="backendId"></div><Br></Br>';
-            document.getElementById('mainId').innerHTML += '<button onclick="deutschCode()">Run</button>';
+            document.getElementById('mainId').innerHTML += '<button style="margin:5px;" onclick="deutschCode()">Run</button>';
+            document.getElementById('mainId').innerHTML += '<button style="margin:5px;" onclick="backToIntro()">Back to Intro</button>';
+            document.getElementById('mainId').innerHTML += '<p id="answerId"></p>';
+            document.getElementById('mainId').innerHTML += '<img id="circuitId" src="" alt="">';
+        }
+
+        function randomBitCode() {
+            localStorage.setItem('pageqportlio', "randomBitCode");
+            let options;
+            if (document.getElementsByName('backendradioId')['1'].checked) {
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selection: "randomBit", input: { backend: "quantum", token: document.getElementById('backendInputId').value } })
+                };
+            } else {
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selection: "randomBit", input: { backend: "simulation", token: "" } })
+                }
+            }
+
+
+            fetch("/api", options).then(async response => {
+                let respo = await response.json();
+                if (respo.bit) {
+                    document.getElementById('answerId').innerHTML = "random bit: 1";
+                } else {
+                    document.getElementById('answerId').innerHTML = "random bit: 0";
+                }
+                document.getElementById('circuitId').src = 'data:image/png;base64, ' + respo.circ.substring(2).slice(0, -1);
+            });
+        }
+
+        function randomBitPage() {
+            document.getElementById('mainId').innerHTML = "<h1>Random Bit Generator based on quantum Mechanics</h1>";
+            document.getElementById('mainId').innerHTML += "<a href='https://www.wikiwand.com/en/Hardware_random_number_generator'>Read on Wikipedia about the use of quantum mechanics for random number generators.</a><Br></Br>";
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="backendradiosimulationId" name="backendradioId" onclick="removeBackend()" value="0" checked>';
+            document.getElementById('mainId').innerHTML += '<label for="backendradiosimulationId">Simulation</label>';
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="backendradioquantumId" name="backendradioId" onclick="addBackend()" value="1">';
+            document.getElementById('mainId').innerHTML += '<label for="backendradioquantumId">Quantum</label><Br></Br>';
+            document.getElementById('mainId').innerHTML += '<div id="backendId"></div><Br></Br>';
+            document.getElementById('mainId').innerHTML += '<button style="margin:5px;" onclick="randomBitCode()">Run</button>';
+            document.getElementById('mainId').innerHTML += '<button style="margin:5px;" onclick="backToIntro()">Back to Intro</button>';
             document.getElementById('mainId').innerHTML += '<p id="answerId"></p>';
             document.getElementById('mainId').innerHTML += '<img id="circuitId" src="" alt="">';
         }
 
 
+        function introPage() {
+            document.getElementById('mainId').innerHTML = '<h1>Welcome to the quantum portfolio of Caballero Software Inc.</h1>';
+            document.getElementById('mainId').innerHTML += "<h4>Qiskit is used in the backend. <a href='https://github.com/Qiskit/qiskit/blob/master/LICENSE.txt'>License of qiskit</a></h4>";
+            document.getElementById('mainId').innerHTML += "<h4>From Qiskit, the user will be able to connect to IBM Quantum Experience. <a href='https://quantum-computing.ibm.com/'>IBM Quantum Experience website</a></h4>";
+            document.getElementById('mainId').innerHTML += "<h4>This portfolio is open-source. <a href='https://github.com/Caballero-Software-Inc/qportfolio'>Repository in GitHub</a></h4>";
+
+            document.getElementById('mainId').innerHTML += "<h4>Disclaimer: Caballero Software Inc. assumes no responsibility for the possible consequences of using the samples from this portfolio. Its use is at the user's own risk.</h4>";
+            document.getElementById('mainId').innerHTML += "<h4>Privacy statement: Caballero Software Inc. will not collect data from the users of this portfolio.</a></h4>";
+            
+
+            document.getElementById('mainId').innerHTML += "<h2>Select a sample</h2>";
+            document.getElementById('mainId').innerHTML += "<button onclick='randomBitPage()'>Random Bit</button> <Br></Br>";
+            document.getElementById('mainId').innerHTML += "<button onclick='deutschPage()'>Deutsch Algorithm</button><Br></Br>";
+
+            document.getElementById('mainId').innerHTML += "<h2>Contact</h2>";
+            document.getElementById('mainId').innerHTML += "<h4>Caballero Software Inc.</h4>";
+            document.getElementById('mainId').innerHTML += '<p style="white-space: pre-line">Address: 201 Lester St, Unit 303, Waterloo, ON Canada N2L 3W3 <br>';
+            document.getElementById('mainId').innerHTML += 'Email: caballero@caballero.software <br><br>';
+            document.getElementById('mainId').innerHTML += 'Phone: +1 (438) 993-2054 <br><br>';
+            document.getElementById('mainId').innerHTML += 'Website: <a href="https://caballero.software/">https://caballero.software/</a></p>';
+        }
+
+        function backToIntro() {
+            localStorage.setItem('pageqportlio', "intro");
+            location.reload();
+
+        }
+
+        switch (localStorage.getItem("pageqportlio")) {
+            case "randomBitPage":
+                randomBitPage();
+                break;
+            case "deutschPage":
+                deutschPage();
+                break;
+            default:
+                introPage();
+                break;
+        };
+
     </script>
-
-    <div id="mainId">
-        <h1>Welcome to the quantum portfolio of Caballero Software Inc.</h1>
-        <h4>Disclaimer: Caballero Software Inc. assumes no responsibility for the possible consequences of using the
-            samples from this portfolio. Its use is at the user's own risk.</h4>
-        <h4>Qiskit is used in the backend. <a href="https://github.com/Qiskit/qiskit/blob/master/LICENSE.txt">License of qiskit</a></h4>
-        <h4>From Qiskit, the user will be able to connect to IBM Quantum Experience. <a href="https://quantum-computing.ibm.com/">IBM Quantum Experience website</a></h4>
-        <h4>Caballero Software Inc. will not collect data about the user of this portfolio.</a></h4>
-
-
-        <h2>Select a sample</h2>
-
-        <button onclick="deutschPage()">Deutsch algorithm</button>
-    </div>
-
-
-
 
 </body>
 

@@ -23,20 +23,20 @@ from qiskit.tools.visualization import plot_histogram, plot_state_city
 import qiskit.quantum_info as qi
 from qiskit.compiler import assemble
 
-def quantumBackend(circuit, token):
+def quantumBackend(circuit, token, nshots):
     IBMQ.save_account(token, overwrite=True)
     IBMQ.load_account()
     provider = IBMQ.get_provider('ibm-q')
     qcomp = provider.get_backend('ibmq_lima') # 5 qubits, 8 quantum volume
-    job = execute(circuit, backend=qcomp, shots = 20)
+    job = execute(circuit, backend=qcomp, shots = nshots)
     job_monitor(job)
     return job.result()
 
-def simulationBackend(circuit, token):
+def simulationBackend(circuit, token, nshots):
     simulator = Aer.get_backend('qasm_simulator')
     circuit = transpile(circuit, simulator)
     my_qobj = assemble(circuit) 
-    return simulator.run(my_qobj).result()
+    return simulator.run(my_qobj, shots = nshots).result()
 
 optionsBackend =  {
     'simulation': simulationBackend,
@@ -71,7 +71,7 @@ def deutschBackend(input):
     circuit.measure([0, 1], [0, 1])
 
     #measurement
-    result = optionsBackend[input['backend']](circuit, input['token'])
+    result = optionsBackend[input['backend']](circuit, input['token'], 20)
 
     # Returns counts
     counts = result.get_counts(circuit)
@@ -91,6 +91,30 @@ def deutschBackend(input):
     return json.dumps({'const': (keys[max_index][1] == '0'), 'circ': str(base64.b64encode(open("circ.png", "rb").read())) })
 
 
+def randomBitBackend(input):    
+    #quantum circuit
+    #before oracle
+    circuit = QuantumCircuit(1, 1)
+    circuit.h(0)
+    
+    #after oracle  
+    circuit.measure([0], [0])
+
+    #measurement
+    result = optionsBackend[input['backend']](circuit, input['token'], 1)
+
+    # Returns counts
+    counts = result.get_counts(circuit)
+    keys = list(counts)
+    
+    # after measurement
+    circuit.draw( output='mpl', filename = 'circ.png' )
+
+    return json.dumps({'bit': (keys[0]=='1'), 'circ': str(base64.b64encode(open("circ.png", "rb").read())) })
+
+
+
+
 
 # client-server
 app = Flask(__name__)
@@ -100,7 +124,8 @@ def home():
     return render_template('home.html')
 
 options =  {
-    'Deutsch': deutschBackend
+    'Deutsch': deutschBackend,
+    'randomBit': randomBitBackend
 }
 
 @app.route('/api', methods=['POST'])
