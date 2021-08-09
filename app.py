@@ -137,5 +137,6 @@ options =  {
 def main():
     return options[request.get_json()['selection']](request.get_json()['input'])
 
+
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

@@ -119,6 +119,7 @@
         }
 
         function randomBitPage() {
+            localStorage.setItem('pageqportlio', "randomBitPage");
             document.getElementById('mainId').innerHTML = "<h1>Random Bit Generator based on quantum Mechanics</h1>";
             document.getElementById('mainId').innerHTML += "<a href='https://www.wikiwand.com/en/Hardware_random_number_generator'>Read on Wikipedia about the use of quantum mechanics for random number generators.</a><Br></Br>";
             document.getElementById('mainId').innerHTML += '<input type="radio" id="backendradiosimulationId" name="backendradioId" onclick="removeBackend()" value="0" checked>';
