@@ -41,7 +41,6 @@ conda
 conda-build
 conda-content-trust 
 conda-pack 
-conda-token 
 conda-verify
 contextlib2
 cryptography 
