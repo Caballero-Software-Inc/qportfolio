@@ -41,7 +41,6 @@ conda
 conda-build
 conda-content-trust 
 conda-pack 
-conda-repo-cli 
 conda-token 
 conda-verify
 contextlib2
