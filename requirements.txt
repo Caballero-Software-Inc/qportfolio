@@ -118,7 +118,6 @@ matplotlib
 matplotlib-inline 
 mccabe
 mistune 
-mkl-service
 mock 
 more-itertools 
 mpmath
