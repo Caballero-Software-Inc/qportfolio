@@ -118,7 +118,6 @@ matplotlib
 matplotlib-inline 
 mccabe
 mistune 
-mkl-random 
 mkl-service
 mock 
 more-itertools 
