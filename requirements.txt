@@ -118,7 +118,6 @@ matplotlib
 matplotlib-inline 
 mccabe
 mistune 
-mkl-fft
 mkl-random 
 mkl-service
 mock 
