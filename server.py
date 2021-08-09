@@ -1,27 +1,23 @@
 import numpy as np
 from flask import Flask, render_template, request, jsonify
 import json
-
-# importing matplotlib modules
 import matplotlib.image as mpimg
 import matplotlib.pyplot as plt
-
 import base64
-
-
-#quantum hardware
 from qiskit import(
     execute,
     QuantumCircuit,
     IBMQ)
 from qiskit.tools.monitor import job_monitor
-
-#simulator
 from qiskit import QuantumCircuit
 from qiskit import Aer, transpile
 from qiskit.tools.visualization import plot_histogram, plot_state_city
 import qiskit.quantum_info as qi
 from qiskit.compiler import assemble
+import os
+import time
+import random
+
 
 def quantumBackend(circuit, token, nshots):
     IBMQ.save_account(token, overwrite=True)
@@ -42,6 +38,13 @@ optionsBackend =  {
     'simulation': simulationBackend,
     'quantum': quantumBackend
 }
+
+def getCircuitPicture(circuit):
+    name = "circ"+str(time.time())+str(random.random())+".png"
+    circuit.draw( output='mpl', filename = name )
+    s = str(base64.b64encode(open(name, "rb").read()))
+    os.remove(name)
+    return s
 
 def deutschBackend(input):
     f = input['f']
@@ -86,12 +89,10 @@ def deutschBackend(input):
             max_val = counts[ keys[j] ]
             max_index = j
 
-    circuit.draw( output='mpl', filename = 'circ.png' )
-
-    return json.dumps({'const': (keys[max_index][1] == '0'), 'circ': str(base64.b64encode(open("circ.png", "rb").read())) })
+    return json.dumps({'const': (keys[max_index][1] == '0'), 'circ': getCircuitPicture(circuit) })
 
 
-def randomBitBackend(input):    
+def randomBitBackend(input):
     #quantum circuit
     #before oracle
     circuit = QuantumCircuit(1, 1)
@@ -108,9 +109,8 @@ def randomBitBackend(input):
     keys = list(counts)
     
     # after measurement
-    circuit.draw( output='mpl', filename = 'circ.png' )
-
-    return json.dumps({'bit': (keys[0]=='1'), 'circ': str(base64.b64encode(open("circ.png", "rb").read())) })
+    
+    return json.dumps({'bit': (keys[0]=='1'), 'circ': getCircuitPicture(circuit) })
 
 
 
