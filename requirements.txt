@@ -261,16 +261,6 @@ Werkzeug
 widgetsnbextension
 wrapt 
 wurlitzer 
-xlrd 
-XlsxWriter 
-xlwt
-xmltodict
-yapf 
-yfinance
-zict
-zipp 
-zope.event
-zope.interface
 
 
 
