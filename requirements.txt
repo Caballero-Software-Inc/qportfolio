@@ -208,7 +208,6 @@ requests-ntlm
 retworkx
 rope 
 Rtree 
-ruamel-yaml-conda 
 scikit-image
 scikit-learn 
 scipy 
