@@ -271,3 +271,17 @@ zict
 zipp 
 zope.event
 zope.interface
+
+
+
+
+
+
+opencv-python
+PyAutoGUI
+PyMsgBox
+pyobjc-core
+pyobjc-framework-Cocoa
+pyobjc-framework-Quartz
+PyScreeze
+PyTweening
