@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>qPortfolio</title>
+</head>
+
+<body style="background-color:yellow;">
+    <script>
+        'use strict';
+        function deutschCode() {
+            let f = [document.getElementsByName('f0')['1'].checked, document.getElementsByName('f1')['1'].checked];
+
+            let options;
+
+            if (document.getElementsByName('backendradioId')['1'].checked) {
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selection: "Deutsch", input: { f: f, backend: "quantum", token: document.getElementById('backendInputId').value } })
+                };
+            } else {
+                options = {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ selection: "Deutsch", input: { f: f, backend: "simulation", token: "" } })
+                }
+            }
+
+
+            fetch("/api", options).then(async response => {
+
+                let respo = await response.json();
+
+                if (respo.const) {
+                    document.getElementById('answerId').innerHTML = "The function is constant.";
+                } else {
+                    document.getElementById('answerId').innerHTML = "The function is balanced.";
+                }
+                document.getElementById('circuitId').src = 'data:image/png;base64, ' + respo.circ.substring(2).slice(0, -1);
+            });
+        }
+
+        function addBackend() {
+            document.getElementById('backendId').innerHTML = '<p>IBMQ Token</p>';
+            document.getElementById('backendId').innerHTML += '<input id="backendInputId" type="text">';
+        }
+
+        function removeBackend() {
+            document.getElementById('backendId').innerHTML = '';
+        }
+
+        function deutschPage() {
+            document.getElementById('mainId').innerHTML = "<h1>Deutsch algorithm</h1>";
+            document.getElementById('mainId').innerHTML += "<a href='https://www.wikiwand.com/en/Deutsch%E2%80%93Jozsa_algorithm'>Read about this quantum algorithm on Wikipedia.</a><Br></Br>";
+            document.getElementById('mainId').innerHTML += "<label>f(0) = </label>";
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="f0is0" name="f0" value="0" checked>';
+            document.getElementById('mainId').innerHTML += '<label for="f0is0">0</label>';
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="f0is1" name="f0" value="1">';
+            document.getElementById('mainId').innerHTML += '<label for="f0is1">1</label><Br></Br>';
+            document.getElementById('mainId').innerHTML += '<label>f(1) = </label>';
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="f1is0" name="f1" value="0" checked>';
+            document.getElementById('mainId').innerHTML += '<label for="f1is0">0</label>';
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="f1is1" name="f1" value="1">';
+            document.getElementById('mainId').innerHTML += '<label for="f1is1">1</label><Br></Br>';
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="backendradiosimulationId" name="backendradioId" onclick="removeBackend()" value="0" checked>';
+            document.getElementById('mainId').innerHTML += '<label for="backendradiosimulationId">Simulation</label>';
+            document.getElementById('mainId').innerHTML += '<input type="radio" id="backendradioquantumId" name="backendradioId" onclick="addBackend()" value="1">';
+            document.getElementById('mainId').innerHTML += '<label for="backendradioquantumId">Quantum</label><Br></Br>';
+            document.getElementById('mainId').innerHTML += '<div id="backendId"></div><Br></Br>';
+            document.getElementById('mainId').innerHTML += '<button onclick="deutschCode()">Run</button>';
+            document.getElementById('mainId').innerHTML += '<p id="answerId"></p>';
+            document.getElementById('mainId').innerHTML += '<img id="circuitId" src="" alt="">';
+        }
+
+
+    </script>
+
+    <div id="mainId">
+        <h1>Welcome to the quantum portfolio of Caballero Software Inc.</h1>
+        <h4>Disclaimer: Caballero Software Inc. assumes no responsibility for the possible consequences of using the
+            samples from this portfolio. Its use is at the user's own risk.</h4>
+        <h4>Qiskit is used in the backend. <a href="https://github.com/Qiskit/qiskit/blob/master/LICENSE.txt">License of qiskit</a></h4>
+        <h4>From Qiskit, the user will be able to connect to IBM Quantum Experience. <a href="https://quantum-computing.ibm.com/">IBM Quantum Experience website</a></h4>
+        <h4>Caballero Software Inc. will not collect data about the user of this portfolio.</a></h4>
+
+
+        <h2>Select a sample</h2>
+
+        <button onclick="deutschPage()">Deutsch algorithm</button>
+    </div>
+
+
+
+
+</body>
+
+</html>
