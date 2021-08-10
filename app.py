@@ -118,10 +118,6 @@ def randomBitBackend(input):
 # client-server
 app = Flask(__name__)
 
-def index(request):
-    r = requests.get('http://httpbin.org/status/418')
-    print(r.text)
-    return HttpResponse('<pre>' + r.text + '</pre>')
 
 @app.route('/')
 def home():

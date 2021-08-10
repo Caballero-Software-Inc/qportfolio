@@ -151,6 +151,8 @@ notebook @ file:///opt/concourse/worker/volumes/live/73fb1a3b-3fcc-491e-62bd-175
 ntlm-auth==1.5.0
 numba @ file:///opt/concourse/worker/volumes/live/263a950e-7ddc-4297-63df-0c284f0b6d22/volume/numba_1616774255536/work
 numexpr @ file:///opt/concourse/worker/volumes/live/e845d683-bbb9-4fa2-79ce-743b84c61560/volume/numexpr_1618856522192/work
+numpy @ file:///opt/concourse/worker/volumes/live/0afd8fc7-bc5d-4daa-6017-99ebdf04f26e/volume/numpy_and_numpy_base_1626271794342/work
+numpydoc @ file:///tmp/build/80754af9/numpydoc_1605117425582/work
 olefile==0.46
 openpyxl @ file:///tmp/build/80754af9/openpyxl_1615411699337/work
 packaging @ file:///tmp/build/80754af9/packaging_1625611678980/work
