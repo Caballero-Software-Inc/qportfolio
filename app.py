@@ -1,4 +1,3 @@
-import numpy as np
 from flask import Flask, render_template, request, jsonify
 import json
 import matplotlib.image as mpimg
