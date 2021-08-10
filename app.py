@@ -133,4 +133,4 @@ def main():
     return options[request.get_json()['selection']](request.get_json()['input'])
 
 
-app.run()
+app.run(port = os.environ.get('PORT', 5000))
