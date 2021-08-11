@@ -1,6 +1,0 @@
-flack
-Flask
-gunicorn
-qiskit
-qiskit-aer
-matplotlib
