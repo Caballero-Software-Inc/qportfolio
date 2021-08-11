@@ -1,6 +1,8 @@
 flack
 Flask
 gunicorn
+json5
+mkl-random
 qiskit
 qiskit-aer
 qiskit-ibmq-provider
