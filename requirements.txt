@@ -1,14 +1,9 @@
 flack
 Flask
 gunicorn
-json5
-mkl-random
 qiskit
 qiskit-aer
-qiskit-aqua
 qiskit-ibmq-provider
-qiskit-ignis
-qiskit-terra
 requests
 requests-ntlm
 requests-toolbelt
