@@ -1,12 +1,7 @@
 gunicorn
 flask
 matplotlib
-base64
 qiskit
-qiskit.tools.monitor
-qiskit.tools.visualization
-qiskit.quantum_info
-qiskit.compiler
 os
 time
 random
