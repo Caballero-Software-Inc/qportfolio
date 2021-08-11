@@ -7,7 +7,4 @@ qiskit
 qiskit-aer
 qiskit-ibmq-provider
 requests
-requests-ntlm
-requests-toolbelt
-wheel
 matplotlib
