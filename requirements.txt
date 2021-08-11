@@ -1,7 +1,6 @@
 gunicorn
 flask
-matplotlib.image
-matplotlib.pyplot
+matplotlib
 base64
 qiskit
 qiskit.tools.monitor
