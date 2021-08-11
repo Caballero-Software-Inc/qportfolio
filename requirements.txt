@@ -38,3 +38,4 @@ requests
 requests-ntlm
 requests-toolbelt
 wheel
+matplotlib
