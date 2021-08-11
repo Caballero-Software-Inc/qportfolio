@@ -1,7 +1,4 @@
 alabaster
-anaconda-client
-anaconda-navigator
-anaconda-project
 anyio
 appdirs
 applaunchservices
