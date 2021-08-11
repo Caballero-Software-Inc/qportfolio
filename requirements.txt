@@ -1,6 +1,5 @@
 gunicorn
 flask
-json
 matplotlib.image
 matplotlib.pyplot
 base64
