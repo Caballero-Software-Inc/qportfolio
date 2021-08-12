@@ -8,7 +8,6 @@ from qiskit import(
     QuantumCircuit,
     IBMQ)
 from qiskit.tools.monitor import job_monitor
-from qiskit import QuantumCircuit
 from qiskit import Aer, transpile
 from qiskit.tools.visualization import plot_histogram, plot_state_city
 import qiskit.quantum_info as qi
